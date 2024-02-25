@@ -1,0 +1,36 @@
+* HOME
+home__social
+https://www.facebook.com/
+https://www.twitter.com/
+https://www.instagram.com/
+
+
+home__description
+A little introduction about myself with a UI friendly.
+
+
+* ABOUT
+about__description
+IT college student, with knowledge and experience, working in web technologies and Ui / Ux design, delivering quality work.
+
+
+* SERVICES
+services__modal-service
+I develop the user interface.
+Web page development.
+I create ux element interactions.
+I position your company brand.
+
+
+* PORTFOLIO
+portfolio__description
+Website adaptable to all devices, with ui components and animated interactions.
+
+
+* FOOTER
+footer__social
+https://www.facebook.com/
+https://www.instagram.com/
+https://twitter.com/
+
+
