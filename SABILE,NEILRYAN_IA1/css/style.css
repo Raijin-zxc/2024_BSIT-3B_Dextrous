@@ -86,7 +86,7 @@ section {
 /* home img url */
 .home {
     height: 100vh;
-    background: url('/img/home1.jpg') no-repeat;
+    /* background: url('/img/home1.jpg') no-repeat; */
     background-size: cover;
     background-position: center;
     display: flex;
@@ -487,10 +487,59 @@ span {
     padding-left: 2rem;
 }
 
+.education-box .education-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -1.1rem;
+    width: 2rem;
+    height: 2rem;
+    background: #00abf0;
+    border-radius: 50%;
+}
+
 .education-content .content {
     position: relative;
     padding: 1.5rem;
     border: .2rem solid #00abf0;
     border-radius: .6rem;
     margin-bottom: 2rem;
+    overflow: hidden;
 }
+
+.education-content .content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #0e2e45;
+    z-index: -1;
+    transition: .5s;
+}
+
+.education-content .content:hover::before {
+    width: 100%;
+}
+
+/* should be colored for the calendar icon, but not working */
+education-content .content .year {
+    font-size: 1.5rem;
+    color: #00abf0;
+    padding-bottom: .5rem;
+}
+
+.education-content .content .year {
+    padding-right: .5rem;
+}
+
+.education-content .content h3 {
+    font-size: 2rem;
+}
+
+.education-content .content p {
+    font-size: 1.6rem;
+    padding-top: 2rem;
+}
+
