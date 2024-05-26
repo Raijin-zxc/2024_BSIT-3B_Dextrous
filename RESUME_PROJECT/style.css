@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+
+}
+
+.sidebar {
+    background-color: rgb(18, 0, 31);
+    color: #fff;
+    padding: 30px;
+    width: 350px;
+    height: 1050px;
+    text-align: center;
+}
+
+.sidebar img {
+    width: 200px; /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+    border-radius: 50%; /* Make the image round */
+    margin-bottom: 0 auto 20px; /* Adjust margin */
+}
+
+.header-left h1 {
+    margin: 0;
+}
+
+.hr {
+    border: none;
+    border-top: 1px solid #fff;
+    margin: 10px 0;
+}
+
+.contact-info {
+    text-align: left; /* Align contact information to the left */
+}
+
+.contact-info p {
+    margin: 5px 0; /* Add margin between each contact information */
+}
+
+.contact-info strong {
+    font-weight: bold; /* Make the contact letters bold */
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(90, 28, 134); /* Set background color for the main content area */
+}
+
+.section {
+    border: 1px solid #9c9a9a;
+    border-radius: 20px;
+    padding: 20px;
+    margin-left: 60px;
+    margin-bottom: 10px;
+    width: 90%;
+    box-sizing: border-box;
+    background-color: #fff; /* Set background color for the boxes */
+}
+
+.education-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.subsection {
+    margin-bottom: 0;
+}
+
+.section:last-child {
+    margin-bottom: 0; /* Remove margin from the last section */
+}
+.header-right p {
+    margin: 20px 0;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    background-color: rgb(161, 107, 200); /* Set background color for h2 */
+    padding: 15px; /* Add padding to h2 */
+    border-radius: 5px; /* Add border radius to h2 */
+    color: white;
+}
+
+h3 {
+    background-color: rgb(171, 150, 187); /* Set background color for h3 */
+    padding: 10px; /* Add padding to h3 */
+    border-radius: 5px; /* Add border radius to h3 */
+    color: white;
+}
