@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 04:44 PM
+-- Generation Time: Jun 01, 2024 at 04:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -190,8 +190,6 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `type`, `firstname`, `lastname`, `address`, `contact_info`, `photo`, `status`, `activate_code`, `reset_code`, `created_on`) VALUES
 (1, 'admin@admin.com', '$2y$10$0SHFfoWzz8WZpdu9Qw//E.tWamILbiNCX7bqhy3od0gvK5.kSJ8N2', 1, 'Denmildz', 'Da', '', '', 'pfp.jpg', 1, '', '', '2024-05-02'),
-(9, 'harry@den.com', '$2y$10$Oongyx.Rv0Y/vbHGOxywl.qf18bXFiZOcEaI4ZpRRLzFNGKAhObSC', 0, 'Harry', 'Den', 'Silay City, Negros Occidental', '09092735719', 'male2.png', 1, 'k8FBpynQfqsv', 'wzPGkX5IODlTYHg', '2024-04-29'),
-(12, 'christine@gmail.com', '$2y$10$ozW4c8r313YiBsf7HD7m6egZwpvoE983IHfZsPRxrO1hWXfPRpxHO', 0, 'Christine', 'becker', 'demo', '7542214500', 'female3.jpg', 1, '', '', '2024-04-29'),
 (18, 'den@gmail.com', '$2y$10$eIoQ6BDATURNbrDV1nWzh.tii48FhtE9feogdwexPV8lI.sX17CzC', 0, 'denmildz', 'da', '', '', 'pfp.jpg', 1, 'BpkSaiwgqUjs', '', '2024-05-15'),
 (23, 'da@gmail.com', '$2y$10$MmR8xxr9yd.k6dCmCKy6Ju4aVwgqaazkPFhm9LVH2hnb3XcJgfffm', 0, 'den', 'da', '', '', '', 0, 'LXAOyo23YUvC', '', '2024-05-18');
 
