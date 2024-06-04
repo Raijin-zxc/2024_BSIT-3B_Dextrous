@@ -32,12 +32,11 @@
 	        	<div class="col-sm-9">
 		            <h1 class="page-header"><?php echo $cat['name']; ?></h1>
 		       		<?php
-		       			
 		       			$conn = $pdo->open();
 
 		       			try{
 		       			 	$inc = 3;	
-						    $stmt = $conn->prepare("SELECT * FROM products WHERE category_id = :catid");
+						    $stmt = $conn->prepare("SELECT * FROM products WHERE category_id = :catid AND status_id = 1");
 						    $stmt->execute(['catid' => $catid]);
 						    foreach ($stmt as $row) {
 						    	$image = (!empty($row['photo'])) ? 'images/'.$row['photo'] : 'images/noimage.jpg';
