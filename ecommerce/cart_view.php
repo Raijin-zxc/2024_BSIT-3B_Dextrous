@@ -1,4 +1,3 @@
-<!-- Make sure to include the necessary PHP files -->
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-blue layout-top-nav">
@@ -6,7 +5,7 @@
 
 	<?php include 'includes/navbar.php'; ?>
 	 
-	  <div class="content-wrapper">
+	<div class="content-wrapper">
 	    <div class="container">
 
 	      <!-- Main content -->
@@ -30,19 +29,18 @@
 		        		</table>
 	        			</div>
 	        		</div>
-	        		<!-- Check if the user is logged in to display PayPal button -->
-	        		<?php
-	        			if(isset($_SESSION['user'])){
-	        				echo "
-	        					<div id='paypal-button'></div> <!-- Edit: Add a div with id 'paypal-button' for PayPal button -->
-	        				";
-	        			}
-	        			else{
-	        				echo "
-	        					<h4>You need to <a href='login.php'>Login</a> to checkout.</h4>
-	        				";
-	        			}
-	        		?>
+	        		<!-- Check if the user is logged in to display payment buttons -->
+	        		<?php if(isset($_SESSION['user'])): ?>
+	        			<div class="box box-solid">
+	        				<div class="box-body">
+	        					<h4>Select Payment Method:</h4>
+	        					<div id='paypal-button'></div>
+	        					<button id="cod-button" class="btn btn-success">Cash on Delivery</button>
+	        				</div>
+	        			</div>
+	        		<?php else: ?>
+	        			<h4>You need to <a href="login.php">Login</a> to checkout.</h4>
+	        		<?php endif; ?>
 	        	</div>
 	        	<div class="col-sm-3">
 	        		<?php include 'includes/sidebar.php'; ?>
@@ -82,7 +80,7 @@ $(function(){
 		e.preventDefault();
 		var id = $(this).data('id');
 		var qty = $('#qty_'+id).val();
-		if(qty>1){
+		if(qty > 1){
 			qty--;
 		}
 		$('#qty_'+id).val(qty);
@@ -131,6 +129,11 @@ $(function(){
 	getDetails();
 	getTotal();
 
+	// Handle Cash on Delivery button click
+	$('#cod-button').click(function() {
+		confirmCOD();
+	});
+
 });
 
 function getDetails(){
@@ -154,6 +157,23 @@ function getTotal(){
 			total = response;
 		}
 	});
+}
+
+function generateRandomString(length) {
+	var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	var result = '';
+	var charactersLength = characters.length;
+	for (var i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
+}
+
+function confirmCOD() {
+	// Generate a unique payment ID for COD
+	var paymentId = 'COD-' + generateRandomString(27);
+	alert('Order placed with Cash on Delivery. Redirecting...');
+	window.location = 'sales.php?pay=' + paymentId;
 }
 </script>
 <!-- Paypal Express -->

@@ -5,7 +5,7 @@
 
 	<?php include 'includes/navbar.php'; ?>
 	 
-	  <div class="content-wrapper">
+	<div class="content-wrapper">
 	    <div class="container">
 
 	      <!-- Main content -->
@@ -16,7 +16,7 @@
 	       			
 	       			$conn = $pdo->open();
 
-	       			$stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM products WHERE name LIKE :keyword");
+	       			$stmt = $conn->prepare("SELECT COUNT(*) AS numrows FROM products WHERE (name LIKE :keyword OR description LIKE :keyword) AND status_id = 1");
 	       			$stmt->execute(['keyword' => '%'.$_POST['keyword'].'%']);
 	       			$row = $stmt->fetch();
 	       			if($row['numrows'] < 1){
@@ -26,11 +26,12 @@
 	       				echo '<h1 class="page-header">Search results for <i>'.$_POST['keyword'].'</i></h1>';
 		       			try{
 		       			 	$inc = 3;	
-						    $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE :keyword");
+						    $stmt = $conn->prepare("SELECT * FROM products WHERE (name LIKE :keyword OR description LIKE :keyword) AND status_id = 1");
 						    $stmt->execute(['keyword' => '%'.$_POST['keyword'].'%']);
 					 
 						    foreach ($stmt as $row) {
-						    	$highlighted = preg_filter('/' . preg_quote($_POST['keyword'], '/') . '/i', '<b>$0</b>', $row['name']);
+						    	$highlighted_name = preg_filter('/' . preg_quote($_POST['keyword'], '/') . '/i', '<b>$0</b>', $row['name']);
+						    	$highlighted_description = preg_filter('/' . preg_quote($_POST['keyword'], '/') . '/i', '<b>$0</b>', $row['description']);
 						    	$image = (!empty($row['photo'])) ? 'images/'.$row['photo'] : 'images/noimage.jpg';
 						    	$inc = ($inc == 3) ? 1 : $inc + 1;
 	       						if($inc == 1) echo "<div class='row'>";
@@ -39,7 +40,8 @@
 	       								<div class='box box-solid'>
 		       								<div class='box-body prod-body'>
 		       									<img src='".$image."' width='100%' height='230px' class='thumbnail'>
-		       									<h5><a href='product.php?product=".$row['slug']."'>".$highlighted."</a></h5>
+		       									<h5><a href='product.php?product=".$row['slug']."'>".$highlighted_name."</a></h5>
+		       									<p>".$highlighted_description."</p>
 		       								</div>
 		       								<div class='box-footer'>
 		       									<b>&#36; ".number_format($row['price'], 2)."</b>
