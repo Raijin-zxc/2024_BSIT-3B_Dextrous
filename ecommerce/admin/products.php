@@ -94,40 +94,43 @@
                   <th>Tools</th>
                 </thead>
                 <tbody>
-                  <?php
-                    $conn = $pdo->open();
+                <?php
+                  $conn = $pdo->open();
 
                     try{
                       $now = date('Y-m-d');
-                      $stmt = $conn->prepare("SELECT * FROM products $where");
+                      $stmt = $conn->prepare("SELECT *, status_id FROM products $where");
                       $stmt->execute();
                       foreach($stmt as $row){
                         $image = (!empty($row['photo'])) ? '../images/'.$row['photo'] : '../images/noimage.jpg';
                         $counter = ($row['date_view'] == $now) ? $row['counter'] : 0;
-                        echo "
+                         echo "
                           <tr>
-                            <td>".$row['name']."</td>
-                            <td>
+                           <td>".$row['name']."</td>
+                             <td>
                               <img src='".$image."' height='30px' width='30px'>
                               <span class='pull-right'><a href='#edit_photo' class='photo' data-toggle='modal' data-id='".$row['id']."'><i class='fa fa-edit'></i></a></span>
                             </td>
                             <td><a href='#description' data-toggle='modal' class='btn btn-info btn-sm btn-flat desc' data-id='".$row['id']."'><i class='fa fa-search'></i> View</a></td>
                             <td>&#36; ".number_format($row['price'], 2)."</td>
                             <td>".$counter."</td>
-                            <td>
-                              <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
-                              <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
-                            </td>
+                          <td>
+                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
+                            <button class='btn btn-secondary btn-sm toggle-status btn-flat' data-id='".$row['id']."' data-status='".$row['status_id']."'>
+                            <i class='fa ".($row['status_id'] ? 'fa-ban' : 'fa-check')."'></i> ".($row['status_id'] ? 'Deactivate' : 'Activate')."
+                            </button>
+                          </td>
                           </tr>
-                        ";
-                      }
+                       ";
+                        }
                     }
                     catch(PDOException $e){
                       echo $e->getMessage();
                     }
 
-                    $pdo->close();
-                  ?>
+          $pdo->close();
+        ?>
+
                 </tbody>
               </table>
             </div>
@@ -150,13 +153,6 @@ $(function(){
   $(document).on('click', '.edit', function(e){
     e.preventDefault();
     $('#edit').modal('show');
-    var id = $(this).data('id');
-    getRow(id);
-  });
-
-  $(document).on('click', '.delete', function(e){
-    e.preventDefault();
-    $('#delete').modal('show');
     var id = $(this).data('id');
     getRow(id);
   });
@@ -196,6 +192,31 @@ $(function(){
       $('.append_items').remove();
   });
 
+  $(document).on('click', '.toggle-status', function(e){
+    e.preventDefault();
+    var id = $(this).data('id');
+    var current_status = $(this).data('status');
+
+    console.log('Toggling status for ID:', id, 'Current status:', current_status);
+
+    $.ajax({
+      type: 'POST',
+      url: 'toggle_status.php',
+      data: {
+        toggle_status: true,
+        id: id,
+        current_status: current_status
+      },
+      success: function(response){
+        console.log('AJAX call successful. Response:', response);
+        window.location.reload();
+      },
+      error: function(xhr, status, error) {
+        console.error('AJAX call failed. Status:', status, 'Error:', error);
+      }
+    });
+  });
+
 });
 
 function getRow(id){
@@ -216,6 +237,7 @@ function getRow(id){
     }
   });
 }
+
 function getCategory(){
   $.ajax({
     type: 'POST',
@@ -228,5 +250,6 @@ function getCategory(){
   });
 }
 </script>
+
 </body>
 </html>
