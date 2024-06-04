@@ -5,11 +5,15 @@
 	$slug = $_GET['product'];
 
 	try{
-		 		
-	    $stmt = $conn->prepare("SELECT *, products.name AS prodname, category.name AS catname, products.id AS prodid FROM products LEFT JOIN category ON category.id=products.category_id WHERE slug = :slug");
+	    $stmt = $conn->prepare("SELECT *, products.name AS prodname, category.name AS catname, products.id AS prodid FROM products LEFT JOIN category ON category.id=products.category_id WHERE slug = :slug AND status_id = 1");
 	    $stmt->execute(['slug' => $slug]);
 	    $product = $stmt->fetch();
-		
+
+	    // If product not found or deactivated, redirect to an error page or show a message
+	    if(!$product){
+	        header('Location: 404.php'); // Assuming you have a 404 page
+	        exit();
+	    }
 	}
 	catch(PDOException $e){
 		echo "There is some problem in connection: " . $e->getMessage();
